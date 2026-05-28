@@ -1,0 +1,30 @@
+# Cursor Project Rules - Screenshot Genius
+
+## Project Intent
+- Keep this project local-first, deterministic, and easy to demo.
+- Favor practical reliability over framework complexity.
+
+## Code Standards
+- Use small, testable functions for business logic.
+- Keep side effects isolated (filesystem, shell commands, external calls).
+- Add concise logs for runtime observability.
+- Prefer explicit fallback behavior over throwing hard failures.
+
+## Safety Rules
+- Never add destructive filesystem operations.
+- Never silently swallow errors in core screenshot flow.
+- Preserve current rename format unless explicitly requested:
+  - `<app-name>-<git-branch>-<ai-summary>.<ext>`
+
+## Testing Rules
+- Any behavior change to naming, filtering, or sanitization must include/adjust tests in `test/server.test.js`.
+- Use Node built-in tests (`node --test`) unless a framework is explicitly requested.
+
+## Documentation Rules
+- Keep `README.md` aligned with actual runtime behavior.
+- If setup or commands change, update README in the same change set.
+
+## PR/Commit Readiness
+- Before proposing commit-ready changes, run:
+  - `npm test`
+- If tests fail, fix or explain the failure before proceeding.
