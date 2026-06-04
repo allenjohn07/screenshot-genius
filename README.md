@@ -1,10 +1,10 @@
 # Screenshot Genius
 
-`screenshot-genius` is a local automation tool for macOS that watches Desktop screenshots, asks a local vision model (Ollama + `llava:7b`) for a short context-aware summary, then renames and tags each screenshot automatically.
+`screenshot-genius` is a local automation tool for macOS that watches your Screenshots folder, asks a local vision model (Ollama + `llava:7b`) for a short context-aware summary, then renames and tags each screenshot automatically.
 
 ## What This Project Does
 
-- Watches `~/Desktop` for newly created screenshot files.
+- Watches `~/Desktop/Screenshots` for newly created screenshot files.
 - Filters only macOS screenshot name patterns:
   - `Screenshot ...`
   - `Screen Shot ...`
@@ -24,7 +24,7 @@
 ## Architecture (Current)
 
 - `server.js` - runtime entry point and watcher logic.
-  - `startWatcher()` starts Desktop file watch.
+  - `startWatcher()` starts Screenshots folder file watch.
   - `processScreenshot(filePath)` handles filtering, analysis, rename, tagging.
   - `analyzeImageWithOllama(filePath, appContext)` performs local vision inference.
   - helper exports for testability: naming and sanitization utilities.
@@ -49,7 +49,7 @@ cp .env.example .env
 
 Supported environment variables:
 
-- `SCREENSHOT_DIR` (default: `~/Desktop`)
+- `SCREENSHOT_DIR` (default: `~/Desktop/Screenshots`)
 - `OLLAMA_URL` (default: `http://localhost:11434/api/generate`)
 - `OLLAMA_MODEL` (default: `llava:7b`)
 - `WATCH_SETTLE_MS` (default: `1200`)
@@ -69,12 +69,12 @@ npm run dev
 
 1. Start Ollama (`ollama serve`) in one terminal.
 2. Start app (`npm run dev`) in project root.
-3. Take a screenshot on Desktop.
+3. Take a screenshot (saved to your Screenshots folder).
 4. Confirm terminal logs:
    - `New Screenshot Detected`
    - `Sending to Ollama`
    - `Renamed to: ...`
-5. Confirm Desktop filename changed to the generated format.
+5. Confirm the screenshot filename changed to the generated format.
 
 ## Test Commands
 
@@ -109,6 +109,6 @@ This repository is considered healthy if:
 
 - `npm test` passes.
 - Running `npm run dev` starts watcher without immediate crash.
-- A new Desktop screenshot gets processed once (no duplicate processing loop).
+- A new screenshot in the watched folder gets processed once (no duplicate processing loop).
 - Output filename is sanitized and stable.
 - Core behavior is documented and reproducible from this README.

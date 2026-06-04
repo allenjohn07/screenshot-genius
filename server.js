@@ -4,7 +4,7 @@ const fs = require('fs');
 const axios = require('axios');
 require('dotenv').config({ quiet: true });
 
-const SCREENSHOT_DIR = process.env.SCREENSHOT_DIR || path.join(process.env.HOME, 'Desktop');
+const SCREENSHOT_DIR = process.env.SCREENSHOT_DIR || path.join(process.env.HOME, 'Desktop', 'Screenshots');
 const OLLAMA_URL = process.env.OLLAMA_URL || 'http://localhost:11434/api/generate';
 const OLLAMA_MODEL = process.env.OLLAMA_MODEL || 'llava:7b';
 const WATCH_SETTLE_MS = Number(process.env.WATCH_SETTLE_MS || 1200);
